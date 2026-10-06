@@ -1,0 +1,287 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * VF DESIGN TOKENS — single source for colour, type, radii, shadows, motion.
+ * Reconciled against Figma file uzqWJXIwPZBcjY6lusXPJC, frame 1:6 "App" (web Home).
+ * Values not present in that frame (amber/steel/live system states) remain provisional —
+ * see /design.md. Components must reference these tokens, never raw hex.
+ */
+:root {
+  /* Base — black / charcoal (Figma: bg #0A0A0A, card #111111, panels #0F0F0F, track #1E1E1E) */
+  --vf-ink: #0a0a0a;
+  --vf-carbon: #0f0f0f;
+  --vf-surface: #111111;
+  --vf-raised: #1a1a1a;
+  --vf-track: #1e1e1e;
+  --vf-line: rgba(255, 255, 255, 0.07);
+  --vf-line-strong: rgba(255, 255, 255, 0.18);
+
+  /* Text (Figma: #FFFFFF headings, #E0E0E0 primary, #888/#555 body, #333 muted labels) */
+  --vf-text: #e0e0e0;
+  --vf-text-strong: #ffffff;
+  --vf-text-2: #888888;
+  --vf-text-3: #666666;
+  --vf-text-4: #555555;
+  --vf-text-mute: #3a3a3a;
+
+  /* VF Core — intelligence (Figma lime #C8F135) */
+  --vf-lime: #c8f135;
+  --vf-lime-ink: #0a0a0a;
+  --vf-lime-hover: #d4f65c;
+  --vf-lime-dim: rgba(200, 241, 53, 0.08);
+  --vf-lime-faint: rgba(200, 241, 53, 0.05);
+  --vf-lime-line: rgba(200, 241, 53, 0.22);
+
+  /* Community — social energy (Figma red #EF0107) */
+  --vf-red: #ef0107;
+  --vf-red-hover: #ff1f25;
+  --vf-red-text: #ff4a4f;
+  --vf-red-dim: rgba(239, 1, 7, 0.1);
+  --vf-red-line: rgba(239, 1, 7, 0.35);
+
+  /* System states — not in the inspected Figma frame; provisional */
+  --vf-amber: #ffb547;
+  --vf-amber-dim: rgba(255, 181, 71, 0.1);
+  --vf-steel: #8a93a0;
+  --vf-steel-dim: rgba(138, 147, 160, 0.12);
+  --vf-live: #ff5a36;
+  --vf-positive: #c8f135;
+  --vf-negative: #ff7a7a;
+
+  /* Radii — Figma is near-square: frames/cards 0, bars/rules 1–3px, a few panels 7–10px */
+  --vf-radius-xs: 2px;
+  --vf-radius-sm: 2px;
+  --vf-radius-md: 3px;
+  --vf-radius-lg: 3px;
+  --vf-radius-xl: 8px;
+
+  /* Shadows — Figma uses none (only a 32px backdrop blur on the nav) */
+  --vf-shadow-card: none;
+  --vf-shadow-glow: none;
+
+  /* Motion */
+  --vf-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --vf-dur-fast: 140ms;
+  --vf-dur: 240ms;
+  --vf-dur-slow: 520ms;
+
+  /* Layout (Figma nav 57px) */
+  --vf-topbar-h: 57px;
+  --vf-tabbar-h: 68px;
+
+  /* shadcn compatibility (template primitives) */
+  --radius: 0.1875rem;
+  --background: var(--vf-ink);
+  --foreground: var(--vf-text);
+  --border: var(--vf-line);
+  --ring: var(--vf-lime);
+}
+
+@theme inline {
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-vf-ink: var(--vf-ink);
+  --color-vf-carbon: var(--vf-carbon);
+  --color-vf-surface: var(--vf-surface);
+  --color-vf-raised: var(--vf-raised);
+  --color-vf-track: var(--vf-track);
+  --color-vf-line: var(--vf-line);
+  --color-vf-line-strong: var(--vf-line-strong);
+  --color-vf-text: var(--vf-text);
+  --color-vf-text-2: var(--vf-text-2);
+  --color-vf-text-3: var(--vf-text-3);
+  --color-vf-text-4: var(--vf-text-4);
+  --color-vf-text-strong: var(--vf-text-strong);
+  --color-vf-text-mute: var(--vf-text-mute);
+  --color-vf-lime: var(--vf-lime);
+  --color-vf-lime-ink: var(--vf-lime-ink);
+  --color-vf-lime-dim: var(--vf-lime-dim);
+  --color-vf-lime-line: var(--vf-lime-line);
+  --color-vf-lime-faint: var(--vf-lime-faint);
+  --color-vf-lime-hover: var(--vf-lime-hover);
+  --color-vf-red: var(--vf-red);
+  --color-vf-red-dim: var(--vf-red-dim);
+  --color-vf-red-line: var(--vf-red-line);
+  --color-vf-red-text: var(--vf-red-text);
+  --color-vf-red-hover: var(--vf-red-hover);
+  --color-vf-amber: var(--vf-amber);
+  --color-vf-amber-dim: var(--vf-amber-dim);
+  --color-vf-steel: var(--vf-steel);
+  --color-vf-steel-dim: var(--vf-steel-dim);
+  --color-vf-live: var(--vf-live);
+  --color-vf-positive: var(--vf-positive);
+  --color-vf-negative: var(--vf-negative);
+
+  --radius-vf-xs: var(--vf-radius-xs);
+  --radius-vf-sm: var(--vf-radius-sm);
+  --radius-vf-md: var(--vf-radius-md);
+  --radius-vf-lg: var(--vf-radius-lg);
+  --radius-vf-xl: var(--vf-radius-xl);
+
+  --shadow-vf-card: var(--vf-shadow-card);
+  --shadow-vf-glow: var(--vf-shadow-glow);
+
+  --ease-vf: var(--vf-ease);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-vf-line;
+  }
+  html {
+    color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-vf-ink text-vf-text font-sans antialiased;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+  :focus-visible {
+    outline: 2px solid var(--vf-lime);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--vf-lime);
+    color: var(--vf-lime-ink);
+  }
+}
+
+@layer utilities {
+  .vf-num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+  /* Figma: Barlow Condensed Black, uppercase, lh ~0.95, ls -1% */
+  .vf-display {
+    font-family: var(--font-display);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+  }
+  /* Figma: JetBrains Mono 10px uppercase, ls 1.2px */
+  .vf-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--vf-text-4);
+  }
+  /* Figma section strip label (e.g. "COMMUNITY SIGNAL", "FRANGO PROGRESSION"): Inter Bold 9px */
+  .vf-strip-label {
+    font-family: var(--font-sans);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+  /* Research-only hatch: visually separates non-production numbers */
+  .vf-hatch {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(255, 181, 71, 0.06) 0 6px,
+      transparent 6px 12px
+    );
+  }
+  .vf-grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .vf-noise {
+    position: relative;
+  }
+  .vf-noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .vf-safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .vf-scroll-x {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .vf-scroll-x::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes vf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes vf-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes vf-shimmer {
+  from {
+    background-position: -400px 0;
+  }
+  to {
+    background-position: 400px 0;
+  }
+}
+
+.vf-rise {
+  animation: vf-rise var(--vf-dur-slow) var(--vf-ease) both;
+}
+.vf-pulse {
+  animation: vf-pulse 1.6s ease-in-out infinite;
+}
+.vf-skeleton {
+  background: linear-gradient(90deg, var(--vf-surface) 0, var(--vf-raised) 50%, var(--vf-surface) 100%);
+  background-size: 800px 100%;
+  animation: vf-shimmer 1.4s linear infinite;
+}
+
+dialog.vf-dialog::backdrop {
+  background: rgba(3, 4, 5, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vf-rise,
+  .vf-pulse,
+  .vf-skeleton {
+    animation: none;
+  }
+}
+
+/* Platform "Made with Runable" badge: on mobile/tablet, keep it clear of the bottom tab bar
+   (it is fixed with inline styles, so !important is required). */
+@media (max-width: 1023.98px) {
+  [data-runable-badge] {
+    bottom: calc(var(--vf-tabbar-h) + env(safe-area-inset-bottom) + 12px) !important;
+    right: 12px !important;
+  }
+}
